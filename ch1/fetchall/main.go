@@ -32,6 +32,7 @@ func fetch(url string, ch chan<- string) {
 		ch <- fmt.Sprintf("while reading %s: %v", url, err)
 		return
 	}
+	//因为我们需要这个方法返回的字节数，但是又不想要其内容
 	nbytes, err := io.Copy(io.Discard, resp.Body)
 	resp.Body.Close() // don't leak resources
 	secs := time.Since(start).Seconds()
